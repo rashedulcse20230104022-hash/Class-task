@@ -1,0 +1,29 @@
+<?php
+
+function calculateInvoiceTotal(array $products, float &$taxAmount = 0, float $couponAmount = 0): float
+{
+    $subtotal = 0;
+
+    foreach ($products as $product) {
+        $subtotal += $product['UnitPrice'] * $product['quantity'];
+    }
+
+
+    // Tax rate (example: 10%)
+    $taxRate = 0.10;
+    $taxAmount = $subtotal * $taxRate;
+
+    // Grand total
+    return $subtotal + $taxAmount;
+}
+
+$products = [
+    ['UnitPrice' => 200, 'quantity' => 2],
+    ['UnitPrice' => 150, 'quantity' => 3],
+];
+
+$tax = 0;
+$total = calculateInvoiceTotal($products, $tax, 50);
+
+echo "Tax: $tax<br>";
+echo "Total: $total";
